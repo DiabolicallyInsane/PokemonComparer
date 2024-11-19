@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Team</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+        * {
+            font-family: "Nunito", serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: 0.5s ease;
+        }
+
+        body {
+            background: #F4F4F4;
+        }
+        .main {
+            margin: 10px;
+            background-color: #FFF;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        .inputfield {
+            display: flex;
+            text-align: center;
+            align-items: center;
+            flex-direction: row;
+        }
+        .main h2 {
+            color: #604CC3;
+        }
+        .inputfield input {
+            color: #604CC3;
+            background-color: #F7F7F7;
+            border-radius: 5px;
+            outline: none;
+            padding: 10px;
+            margin: 5px;
+            border: 0;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .inputfield button {
+            color: #F7F7F7;
+            background-color: #604CC3;
+            border-radius: 5px;
+            outline: none;
+            padding: 10px;
+            margin: 5px;
+            border: 0;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .mons {
+            display: flex;
+            justify-content: space-evenly;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 10px;
+        }
+        .mons div{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #FFF;
+            padding: 10px;
+            border-radius: 20px;
+        }
+
+
+        .mons div img {
+            height: 200px;
+            width: 200px;
+            margin-top: 20px;
+        }
+        .stats p{
+            font-weight: bold;
+            text-align: left;
+        }
+        .mon1 p,.mon2 p,.mon3 p{
+            font-weight: bold;
+        }
+        
+        progress {
+            width: 100%;
+            height: 15px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h2>PokemonComparer</h2>
+        <div class="inputfield">
+            <input type="text" placeholder="Pokemon 1" id="pok1">
+            <input type="text" placeholder="Pokemon 2" id="pok2">
+            <input type="text" placeholder="Pokemon 3" id="pok3">
+            <button>Compare the Mons!</button>
+        </div>
+    </div>
+
+    <div class="mons">
+        <div class="mon1">
+            <img src="images/graypokeball.png" alt="Pokemon Image">
+            <p id="name1"></p>
+            <div class="stats">
+                <p>HP: <span id="hp1"></span></p>
+                <progress id="hpProgress1" value="0" max="255"></progress>
+                <p>Attack: <span id="attack1"></span></p>
+                <progress id="attackProgress1" value="0" max="190"></progress>
+                <p>Defense: <span id="defense1"></span></p>
+                <progress id="defenseProgress1" value="0" max="230"></progress>
+                <p>Sp.Attack: <span id="spAttack1"></span></p>
+                <progress id="spAttackProgress1" value="0" max="194"></progress>
+                <p>Sp.Defense: <span id="spDefense1"></span></p>
+                <progress id="spDefenseProgress1" value="0" max="230"></progress>
+                <p>Total: <span id="total1"></span></p>
+                <progress id="totalProgress1" value="0" max="600"></progress>
+            </div>
+        </div>
+        
+        <div class="mon2">
+            <img src="images/graypokeball.png" alt="Pokemon Image">
+            <p id="name2"></p>
+            <div class="stats">
+                <p>HP: <span id="hp2"></span></p>
+                <progress id="hpProgress2" value="0" max="255"></progress>
+                <p>Attack: <span id="attack2"></span></p>
+                <progress id="attackProgress2" value="0" max="190"></progress>
+                <p>Defense: <span id="defense2"></span></p>
+                <progress id="defenseProgress2" value="0" max="230"></progress>
+                <p>Sp.Attack: <span id="spAttack2"></span></p>
+                <progress id="spAttackProgress2" value="0" max="194"></progress>
+                <p>Sp.Defense: <span id="spDefense2"></span></p>
+                <progress id="spDefenseProgress2" value="0" max="230"></progress>
+                <p>Total: <span id="total2"></span></p>
+                <progress id="totalProgress2" value="0" max="600"></progress>
+            </div>
+        </div>
+        
+        <div class="mon3">
+            <img src="images/graypokeball.png" alt="Pokemon Image">
+            <p id="name3"></p>
+            <div class="stats">
+                <p>HP: <span id="hp3"></span></p>
+                <progress id="hpProgress3" value="0" max="255"></progress>
+                <p>Attack: <span id="attack3"></span></p>
+                <progress id="attackProgress3" value="0" max="190"></progress>
+                <p>Defense: <span id="defense3"></span></p>
+                <progress id="defenseProgress3" value="0" max="230"></progress>
+                <p>Sp.Attack: <span id="spAttack3"></span></p>
+                <progress id="spAttackProgress3" value="0" max="194"></progress>
+                <p>Sp.Defense: <span id="spDefense3"></span></p>
+                <progress id="spDefenseProgress3" value="0" max="230"></progress>
+                <p>Total: <span id="total3"></span></p>
+                <progress id="totalProgress3" value="0" max="600"></progress>
+            </div>
+        </div>
+    </div>
+
+<script>
+document.querySelector('button').addEventListener('click', async () => {
+    const pokemonNames = [
+        document.getElementById('pok1').value.toLowerCase(),
+        document.getElementById('pok2').value.toLowerCase(),
+        document.getElementById('pok3').value.toLowerCase()
+    ];
+
+    for (let i = 0; i < pokemonNames.length; i++) {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNames[i]}`);
+        
+        if (response.ok) {
+            const data = await response.json();
+
+           
+            document.getElementById(`name${i + 1}`).innerText = data.name.charAt(0).toUpperCase() + data.name.slice(1);
+
+            // Update image
+            const imageSelector = `.mon${i + 1} img`;
+            document.querySelector(imageSelector).src = data.sprites.front_default;
+
+            // Update stats
+            document.getElementById(`hp${i + 1}`).innerText = data.stats[0].base_stat;
+            document.getElementById(`hpProgress${i + 1}`).value = data.stats[0].base_stat;
+
+            document.getElementById(`attack${i + 1}`).innerText = data.stats[1].base_stat;
+            document.getElementById(`attackProgress${i + 1}`).value = data.stats[1].base_stat;
+
+            document.getElementById(`defense${i + 1}`).innerText = data.stats[2].base_stat;
+            document.getElementById(`defenseProgress${i + 1}`).value = data.stats[2].base_stat;
+
+            document.getElementById(`spAttack${i + 1}`).innerText = data.stats[3].base_stat;
+            document.getElementById(`spAttackProgress${i + 1}`).value = data.stats[3].base_stat;
+
+            document.getElementById(`spDefense${i + 1}`).innerText = data.stats[4].base_stat;
+            document.getElementById(`spDefenseProgress${i + 1}`).value = data.stats[4].base_stat;
+
+            const totalStats = data.stats.reduce((total, stat) => total + stat.base_stat, 0);
+            document.getElementById(`total${i + 1}`).innerText = totalStats;
+            document.getElementById(`totalProgress${i + 1}`).value = totalStats;
+        } else {
+            alert(`Could not find Pokémon: ${pokemonNames[i]}`);
+        }
+    }
+});
+</script>
+
+</body>
+</html>
